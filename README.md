@@ -93,3 +93,6 @@ This Zabbix template is designed to collect power data from Dell iDRAC using the
 | Redfish Voltages {#MEMBERID} UpperThresholdFatal                   | `http.redfish.voltages.upperthresholdfatal[{#MEMBERID}]`                                     |
 | Redfish Voltages {#MEMBERID} UpperThresholdNonCritical             | `http.redfish.voltages.upperthresholdnoncritical[{#MEMBERID}]`                               |
 
+## Triggers
+
+There are no triggers in this template.
