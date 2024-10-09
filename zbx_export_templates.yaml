@@ -1,0 +1,769 @@
+zabbix_export:
+  version: '6.0'
+  date: '2024-10-07T08:59:10Z'
+  groups:
+    - uuid: 28f09c00e0884bfc8debf6bbe23f7d83
+      name: 'Dell iDRAC'
+  templates:
+    - uuid: 598e306102924e3baa466b4f040664a6
+      template: 'Template Dell Idrac Redfish'
+      name: 'Template Dell Idrac Redfish'
+      groups:
+        - name: 'Dell iDRAC'
+      items:
+        - uuid: 34cf639ec6454ed1a74c32cfb3d243f9
+          name: 'Redfish PowerData'
+          type: HTTP_AGENT
+          key: Redfish.PowerData
+          delay: 2m
+          trends: '0'
+          value_type: TEXT
+          authtype: BASIC
+          username: '{$REDFISH.USER}'
+          password: '{$REDFISH.PASSWORD}'
+          timeout: 10s
+          url: 'https://{HOST.CONN}/redfish/v1/Chassis/System.Embedded.1/Power'
+      discovery_rules:
+        - uuid: 0de5614f663e439ba8b32ea99cf6461e
+          name: PowerControl
+          type: DEPENDENT
+          key: http.redfish.powercontrol
+          delay: '0'
+          item_prototypes:
+            - uuid: 9c6127a5ee3d4d4195c7ff17ea56f7a6
+              name: 'Redfish Power Control {#MEMBERID} Name'
+              type: DEPENDENT
+              key: 'http.redfish.powercontrol.name[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerControl[?(@.MemberId == {#MEMBERID})].Name.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 331562923eda416c872fea33bcb5fc9c
+              name: 'Redfish Power Control {#MEMBERID} PowerCapacityWatts'
+              type: DEPENDENT
+              key: 'http.redfish.powercontrol.powercapacitywatts[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: W
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerControl[?(@.MemberId == {#MEMBERID})].PowerCapacityWatts.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 7f69a5b8038343039a7e522d6e807c4f
+              name: 'Redfish Power Control {#MEMBERID} PowerConsumedWatts'
+              type: DEPENDENT
+              key: 'http.redfish.powercontrol.powerconsumedwatts[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: W
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerControl[?(@.MemberId == {#MEMBERID})].PowerAllocatedWatts.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: dde4e42b537b4dcca6e20828dd16f1a4
+              name: 'Redfish Power Control {#MEMBERID} PowerLimit CorrectionInMs'
+              type: DEPENDENT
+              key: 'http.redfish.powercontrol.powerlimit.correctioninms[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: W
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerControl[?(@.MemberId == {#MEMBERID})].PowerLimit.CorrectionInMs.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 2ff6e93f8fa140a986ce1ff8556e4c40
+              name: 'Redfish Power Control {#MEMBERID} PowerLimit LimitException'
+              type: DEPENDENT
+              key: 'http.redfish.powercontrol.powerlimit.limitexception[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerControl[?(@.MemberId == {#MEMBERID})].PowerLimit.LimitException.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 09b7611fe08e4498997f3ae1c8f61907
+              name: 'Redfish Power Control {#MEMBERID} PowerLimit LimitInWatts'
+              type: DEPENDENT
+              key: 'http.redfish.powercontrol.powerlimit.limitInwatts[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: W
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerControl[?(@.MemberId == {#MEMBERID})].PowerLimit.LimitInWatts.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 0afc736aea4f4186afa74cfb71d4e8b2
+              name: 'Redfish Power Control {#MEMBERID} PowerMetrics AverageConsumedWatts'
+              type: DEPENDENT
+              key: 'http.redfish.powercontrol.powerMetrics.averageconsumedwatts[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: W
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerControl[?(@.MemberId == {#MEMBERID})].PowerMetrics.AverageConsumedWatts.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 312513ba5f1644efa888290310e0edd2
+              name: 'Redfish Power Control {#MEMBERID} PowerMetrics IntervalInMin'
+              type: DEPENDENT
+              key: 'http.redfish.powercontrol.powermetrics.intervalinmin[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: Min
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerControl[?(@.MemberId == {#MEMBERID})].PowerMetrics.IntervalInMin.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: e81fae7f9b30475c86c0eb1ba4f5fbb3
+              name: 'Redfish Power Control {#MEMBERID} PowerMetrics MaxConsumedWatts'
+              type: DEPENDENT
+              key: 'http.redfish.powercontrol.powermetrics.maxconsumedwatts[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: W
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerControl[?(@.MemberId == {#MEMBERID})].PowerMetrics.MaxConsumedWatts.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: dd174e43a7af4ffd9aea333ed7486b15
+              name: 'Redfish Power Control {#MEMBERID} PowerMetrics MinConsumedWatts'
+              type: DEPENDENT
+              key: 'http.redfish.powercontrol.powerMetrics.minconsumedwatts[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: W
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerControl[?(@.MemberId == {#MEMBERID})].PowerMetrics.MinConsumedWatts.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: a15396fdc3ed41b897d4ab6644e946b7
+              name: 'Redfish Power Control {#MEMBERID} PowerRequestedWatts'
+              type: DEPENDENT
+              key: 'http.redfish.powercontrol.powerrequestedwatts[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: W
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerControl[?(@.MemberId == {#MEMBERID})].PowerRequestedWatts.first()'
+                - type: JAVASCRIPT
+                  parameters:
+                    - 'return parseInt(value)'
+              master_item:
+                key: Redfish.PowerData
+          master_item:
+            key: Redfish.PowerData
+          lld_macro_paths:
+            - lld_macro: '{#MEMBERID}'
+              path: $.MemberId
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - '$.PowerControl[*]'
+        - uuid: 23c27448b1014e30b54ec72f18fb7ae7
+          name: PowerSupplies
+          type: DEPENDENT
+          key: http.redfish.powersupply
+          delay: '0'
+          item_prototypes:
+            - uuid: 2ac52b55e58f4bbf91c149bfc12742f4
+              name: 'Redfish Power Supply {#MEMBERID} EfficiencyPercent'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.efficiencypercent[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: Per
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].EfficiencyPercent.first()'
+                - type: JAVASCRIPT
+                  parameters:
+                    - 'return parseFloat(value).toFixed(3);'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 55be465553ee47ba9b8a0566920cc08e
+              name: 'Redfish Power Supply {#MEMBERID} FirmwareVersion'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.firmwareversion[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].FirmwareVersion.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 31951c8d1dbd4628906b9634413d060a
+              name: 'Redfish Power Supply {#MEMBERID} HotPluggable'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.hotpluggable[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].HotPluggable.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 4fa95011002d46bcba64ae659fd72b91
+              name: 'Redfish Power Supply {#MEMBERID} InputRanges MaximumVoltage'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.inputranges.maximumvoltage[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: V
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].InputRanges[0].MaximumVoltage.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 96a63446a0b9475f88ded9716d1a96a9
+              name: 'Redfish Power Supply {#MEMBERID} InputRanges MinimumFrequencyHz'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.inputranges.minimumfrequencyhz[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: Hz
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].InputRanges[0].MinimumFrequencyHz.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 0bc0c32b451b42f291402f4d71f9189b
+              name: 'Redfish Power Supply {#MEMBERID} InputRanges OutputWattage'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.inputranges.outputwattage[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: W
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].InputRanges[0].OutputWattage.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 3a73a281bec44742ab41d0bc0c393f00
+              name: 'Redfish Power Supply {#MEMBERID} LastPowerOutputWatts'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.lastpoweroutputwatts[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: W
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].LastPowerOutputWatts.first()'
+                - type: JAVASCRIPT
+                  parameters:
+                    - 'return parseInt(value);'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 1f98ffc96b2a4408a0c6ba0bf38822bc
+              name: 'Redfish Power Supply {#MEMBERID} LineInputVoltageType'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.lineinputvoltagetype[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].LineInputVoltageType.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: b52b3b7019214273a4e37c702411648a
+              name: 'Redfish Power Supply {#MEMBERID} LineInputVoltage'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.lineinputvoltage[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: V
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].LineInputVoltage.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: e6e6c493a05442128ec740682189558f
+              name: 'Redfish Power Supply {#MEMBERID} Manufacturer'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.manufacturer[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].Manufacturer.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: d6764e3fd1da492995b446988cc550e7
+              name: 'Redfish Power Supply {#MEMBERID} Model'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.model[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].Model.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: cd784cd6e41c4c2d8fe34c762fad86df
+              name: 'Redfish Power Supply {#MEMBERID} Name'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.name[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].Name.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: f8e051f4694445e085e1c9502b233e9e
+              name: 'Redfish Power Supply {#MEMBERID} PartNumber'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.partnumber[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].PartNumber.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: c05bf880075943b982722938c60aafc8
+              name: 'Redfish Power Supply {#MEMBERID} PowerCapacityWatts'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.powercapacitywatts[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: W
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].PowerCapacityWatts.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 07ca136add9341b491f6ebe311377fc7
+              name: 'Redfish Power Supply {#MEMBERID} PowerInputWatts'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.powerinputwatts[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: W
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].PowerInputWatts.first()'
+                - type: JAVASCRIPT
+                  parameters:
+                    - 'return parseInt(value);'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: d4143a256ef14811be54b8572143601f
+              name: 'Redfish Power Supply {#MEMBERID} PowerOutputWatts'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.poweroutputwatts[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: W
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].PowerOutputWatts.first()'
+                - type: JAVASCRIPT
+                  parameters:
+                    - 'return parseInt(value);'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 92ba405a572d4928a9482b16c5c83865
+              name: 'Redfish Power Supply {#MEMBERID} PowerSupplyType'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.powersupplytype[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].PowerSupplyType.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 65dab54ec34a43cabcde12229c024d37
+              name: 'Redfish Power Supply {#MEMBERID} SerialNumber'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.serialnumber[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].SerialNumber.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 7d02b7c446534e8385a02411e805ea7a
+              name: 'Redfish Power Supply {#MEMBERID} SparePartNumber'
+              type: DEPENDENT
+              key: 'http.redfish.powersupply.sparepartnumber[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.PowerSupplies[?(@.MemberId == {#MEMBERID})].SparePartNumber.first()'
+              master_item:
+                key: Redfish.PowerData
+          master_item:
+            key: Redfish.PowerData
+          lld_macro_paths:
+            - lld_macro: '{#MEMBERID}'
+              path: $.MemberId
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - '$.PowerSupplies[*]'
+        - uuid: 4ba7a95284be4150b35503c12860e147
+          name: Redundancy
+          type: DEPENDENT
+          key: http.redfish.redundancy
+          delay: '0'
+          item_prototypes:
+            - uuid: 7b37615561334342ac38529970c1e6b6
+              name: 'Redfish Redundancy {#MEMBERID} MaxNumSupported'
+              type: DEPENDENT
+              key: 'http.redfish.redundancy.maxnumsupported[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.Redundancy[?(@.MemberId == {#MEMBERID})].MaxNumSupported.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 2150b9edc09a4435af1dda6ecfb137e3
+              name: 'Redfish Redundancy {#MEMBERID} MinNumNeeded'
+              type: DEPENDENT
+              key: 'http.redfish.redundancy.minnumneeded[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.Redundancy[?(@.MemberId == {#MEMBERID})].MinNumNeeded.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: a263723b1ff449f892bfc6274316f6bf
+              name: 'Redfish Redundancy {#MEMBERID} Mode'
+              type: DEPENDENT
+              key: 'http.redfish.redundancy.mode[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.Redundancy[?(@.MemberId == {#MEMBERID})].Mode.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 880a5de8dd5043eb8ac49fac9f6baef2
+              name: 'Redfish Redundancy {#MEMBERID} Name'
+              type: DEPENDENT
+              key: 'http.redfish.redundancy.name[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.Redundancy[?(@.MemberId == {#MEMBERID})].Name.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 9ba2123c97504a66878ae9694852612d
+              name: 'Redfish Redundancy {#MEMBERID} Status Health'
+              type: DEPENDENT
+              key: 'http.redfish.redundancy.status.health[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.Redundancy[?(@.MemberId == {#MEMBERID})].Status.Health.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 1aa238ec47c2494c9387378e28045f19
+              name: 'Redfish Redundancy {#MEMBERID} Status State'
+              type: DEPENDENT
+              key: 'http.redfish.redundancy.status.state[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.Redundancy[?(@.MemberId == {#MEMBERID})].Status.State.first()'
+              master_item:
+                key: Redfish.PowerData
+          master_item:
+            key: Redfish.PowerData
+          lld_macro_paths:
+            - lld_macro: '{#MEMBERID}'
+              path: $.MemberId
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - '$.Redundancy[*]'
+        - uuid: ff635f41a0464f4e81dd0908d8691ee0
+          name: Voltages
+          type: DEPENDENT
+          key: http.redfish.voltages
+          delay: '0'
+          item_prototypes:
+            - uuid: 62e88be14b42487ca34a09f5ab54750b
+              name: 'Redfish Voltages {#MEMBERID} LowerThresholdCritical'
+              type: DEPENDENT
+              key: 'http.redfish.voltages.lowerthresholdcritical[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: V
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.Voltages[?(@.MemberId == {#MEMBERID})].LowerThresholdCritical.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: a7a0a59902f94a9481813531fcfd07db
+              name: 'Redfish Voltages {#MEMBERID} LowerThresholdFatal'
+              type: DEPENDENT
+              key: 'http.redfish.voltages.lowerthresholdfatal[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: V
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.Voltages[?(@.MemberId == {#MEMBERID})].LowerThresholdFatal.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: c8ce460e441d4734ba80383836da863b
+              name: 'Redfish Voltages {#MEMBERID} LowerThresholdNonCritical'
+              type: DEPENDENT
+              key: 'http.redfish.voltages.lowerthresholdnoncritical[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: V
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.Voltages[?(@.MemberId == {#MEMBERID})].LowerThresholdNonCritical.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: fc0d43680c174b6bbde0a761e350aa66
+              name: 'Redfish Voltages {#MEMBERID} Name'
+              type: DEPENDENT
+              key: 'http.redfish.voltages.name[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.Voltages[?(@.MemberId == {#MEMBERID})].Name.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 5608f708a7f745c4ab8b6481d544c289
+              name: 'Redfish Voltages {#MEMBERID} PhysicalContext'
+              type: DEPENDENT
+              key: 'http.redfish.voltages.physicalcontext[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.Voltages[?(@.MemberId == {#MEMBERID})].PhysicalContext.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 1a4719e1045d4336ba18e908d7f7e073
+              name: 'Redfish Voltages {#MEMBERID} ReadingVolts'
+              type: DEPENDENT
+              key: 'http.redfish.voltages.readingvolts[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              units: V
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.Voltages[?(@.MemberId == {#MEMBERID})].ReadingVolts.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 66c7011664744d31b145a1814e3f6c69
+              name: 'Redfish Voltages {#MEMBERID} SensorNumber'
+              type: DEPENDENT
+              key: 'http.redfish.voltages.sensornumber[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.Voltages[?(@.MemberId == {#MEMBERID})].SensorNumber.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 916d5ab2973a4371a4b6a214a73c3581
+              name: 'Redfish Voltages {#MEMBERID} Status State'
+              type: DEPENDENT
+              key: 'http.redfish.voltages.status.state[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.Voltages[?(@.MemberId == {#MEMBERID})].Status.State.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 6208f176cefd4881867362a36dfc7ee7
+              name: 'Redfish Voltages {#MEMBERID} Status Health'
+              type: DEPENDENT
+              key: 'http.redfish.voltages.statushealth[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: 90d
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.Voltages[?(@.MemberId == {#MEMBERID})].Status.Health.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 543748d7a6e045cfb25bc69477d17780
+              name: 'Redfish Voltages {#MEMBERID} UpperThresholdCritical'
+              type: DEPENDENT
+              key: 'http.redfish.voltages.upperthresholdcritical[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.Voltages[?(@.MemberId == {#MEMBERID})].UpperThresholdCritical.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: 446676a957304855bfe0b1b48ca09b7c
+              name: 'Redfish Voltages {#MEMBERID} UpperThresholdFatal'
+              type: DEPENDENT
+              key: 'http.redfish.voltages.upperthresholdfatal[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.Voltages[?(@.MemberId == {#MEMBERID})].UpperThresholdFatal.first()'
+              master_item:
+                key: Redfish.PowerData
+            - uuid: fef8804a5dfc4f85b5044cf9540cc4d1
+              name: 'Redfish Voltages {#MEMBERID} UpperThresholdNonCritical'
+              type: DEPENDENT
+              key: 'http.redfish.voltages.upperthresholdnoncritical[{#MEMBERID}]'
+              delay: '0'
+              history: 30d
+              trends: '0'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$.Voltages[?(@.MemberId == {#MEMBERID})].UpperThresholdNonCritical.first()'
+              master_item:
+                key: Redfish.PowerData
+          master_item:
+            key: Redfish.PowerData
+          lld_macro_paths:
+            - lld_macro: '{#MEMBERID}'
+              path: $.MemberId
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - '$.Voltages[*]'
