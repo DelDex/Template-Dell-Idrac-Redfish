@@ -2,6 +2,9 @@
 
 This Zabbix template is designed to collect power data from Dell iDRAC using the Redfish API. It monitors power consumption, power supply status, redundancy, and voltage metrics.
 
+## Authors
+- **Robert Gladewitz**
+- **Deljin Davis Kanukadan**
 ## Features
 - **Data collected via Redfish API**: The template retrieves power-related data from Dell iDRAC through the Redfish API.
 - **Multiple discovery rules**: Automatically discovers and monitors power control, power supplies, redundancy status, and voltage levels.
@@ -25,131 +28,68 @@ This Zabbix template is designed to collect power data from Dell iDRAC using the
   **Key**: `http.redfish.voltages`
 
 ## Power Control Item Prototypes
-1. `Redfish Power Control {#MEMBERID} Name`  
-   **Key**: `http.redfish.powercontrol.name[{#MEMBERID}]`
-   
-2. `Redfish Power Control {#MEMBERID} PowerCapacityWatts`  
-   **Key**: `http.redfish.powercontrol.powercapacitywatts[{#MEMBERID}]`
-   
-3. `Redfish Power Control {#MEMBERID} PowerConsumedWatts`  
-   **Key**: `http.redfish.powercontrol.powerconsumedwatts[{#MEMBERID}]`
-   
-4. `Redfish Power Control {#MEMBERID} PowerLimit CorrectionInMs`  
-   **Key**: `http.redfish.powercontrol.powerlimit.correctioninms[{#MEMBERID}]`
-   
-5. `Redfish Power Control {#MEMBERID} PowerLimit LimitException`  
-   **Key**: `http.redfish.powercontrol.powerlimit.limitexception[{#MEMBERID}]`
-   
-6. `Redfish Power Control {#MEMBERID} PowerLimit LimitInWatts`  
-   **Key**: `http.redfish.powercontrol.powerlimit.limitInwatts[{#MEMBERID}]`
-   
-7. `Redfish Power Control {#MEMBERID} PowerMetrics AverageConsumedWatts`  
-   **Key**: `http.redfish.powercontrol.powermetrics.averageconsumedwatts[{#MEMBERID}]`
-   
-8. `Redfish Power Control {#MEMBERID} PowerMetrics IntervalInMin`  
-   **Key**: `http.redfish.powercontrol.powermetrics.intervalinmin[{#MEMBERID}]`
-   
-9. `Redfish Power Control {#MEMBERID} PowerMetrics MaxConsumedWatts`  
-   **Key**: `http.redfish.powercontrol.powermetrics.maxconsumedwatts[{#MEMBERID}]`
-   
-10. `Redfish Power Control {#MEMBERID} PowerMetrics MinConsumedWatts`  
-    **Key**: `http.redfish.powercontrol.powermetrics.minconsumedwatts[{#MEMBERID}]`
-   
-11. `Redfish Power Control {#MEMBERID} PowerRequestedWatts`  
-    **Key**: `http.redfish.powercontrol.powerrequestedwatts[{#MEMBERID}]`
+
+| **Prototype**                                                   | **Key**                                                                                     |
+|------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| Redfish Power Control {#MEMBERID} Name                           | `http.redfish.powercontrol.name[{#MEMBERID}]`                                                |
+| Redfish Power Control {#MEMBERID} PowerCapacityWatts             | `http.redfish.powercontrol.powercapacitywatts[{#MEMBERID}]`                                  |
+| Redfish Power Control {#MEMBERID} PowerConsumedWatts             | `http.redfish.powercontrol.powerconsumedwatts[{#MEMBERID}]`                                  |
+| Redfish Power Control {#MEMBERID} PowerLimit CorrectionInMs      | `http.redfish.powercontrol.powerlimit.correctioninms[{#MEMBERID}]`                           |
+| Redfish Power Control {#MEMBERID} PowerLimit LimitException      | `http.redfish.powercontrol.powerlimit.limitexception[{#MEMBERID}]`                           |
+| Redfish Power Control {#MEMBERID} PowerLimit LimitInWatts        | `http.redfish.powercontrol.powerlimit.limitInwatts[{#MEMBERID}]`                             |
+| Redfish Power Control {#MEMBERID} PowerMetrics AverageConsumedWatts | `http.redfish.powercontrol.powermetrics.averageconsumedwatts[{#MEMBERID}]`                    |
+| Redfish Power Control {#MEMBERID} PowerMetrics IntervalInMin     | `http.redfish.powercontrol.powermetrics.intervalinmin[{#MEMBERID}]`                          |
+| Redfish Power Control {#MEMBERID} PowerMetrics MaxConsumedWatts  | `http.redfish.powercontrol.powermetrics.maxconsumedwatts[{#MEMBERID}]`                       |
+| Redfish Power Control {#MEMBERID} PowerMetrics MinConsumedWatts  | `http.redfish.powercontrol.powermetrics.minconsumedwatts[{#MEMBERID}]`                       |
+| Redfish Power Control {#MEMBERID} PowerRequestedWatts            | `http.redfish.powercontrol.powerrequestedwatts[{#MEMBERID}]`                                 |
 
 ## Power Supplies Item Prototypes
-1. `Redfish Power Supply {#MEMBERID} EfficiencyPercent`  
-   **Key**: `http.redfish.powersupply.efficiencypercent[{#MEMBERID}]`
-   
-2. `Redfish Power Supply {#MEMBERID} FirmwareVersion`  
-   **Key**: `http.redfish.powersupply.firmwareversion[{#MEMBERID}]`
-   
-3. `Redfish Power Supply {#MEMBERID} HotPluggable`  
-   **Key**: `http.redfish.powersupply.hotpluggable[{#MEMBERID}]`
-   
-4. `Redfish Power Supply {#MEMBERID} InputRanges MaximumVoltage`  
-   **Key**: `http.redfish.powersupply.inputranges.maximumvoltage[{#MEMBERID}]`
-   
-5. `Redfish Power Supply {#MEMBERID} InputRanges MinimumFrequencyHz`  
-   **Key**: `http.redfish.powersupply.inputranges.minimumfrequencyhz[{#MEMBERID}]`
-   
-6. `Redfish Power Supply {#MEMBERID} InputRanges OutputWattage`  
-   **Key**: `http.redfish.powersupply.inputranges.outputwattage[{#MEMBERID}]`
-   
-7. `Redfish Power Supply {#MEMBERID} LastPowerOutputWatts`  
-   **Key**: `http.redfish.powersupply.lastpoweroutputwatts[{#MEMBERID}]`
-   
-8. `Redfish Power Supply {#MEMBERID} LineInputVoltage`  
-   **Key**: `http.redfish.powersupply.lineinputvoltage[{#MEMBERID}]`
-   
-9. `Redfish Power Supply {#MEMBERID} LineInputVoltageType`  
-   **Key**: `http.redfish.powersupply.lineinputvoltagetype[{#MEMBERID}]`
-   
-10. `Redfish Power Supply {#MEMBERID} Manufacturer`  
-    **Key**: `http.redfish.powersupply.manufacturer[{#MEMBERID}]`
-    
-11. `Redfish Power Supply {#MEMBERID} Model`  
-    **Key**: `http.redfish.powersupply.model[{#MEMBERID}]`
-    
-12. `Redfish Power Supply {#MEMBERID} PowerCapacityWatts`  
-    **Key**: `http.redfish.powersupply.powercapacitywatts[{#MEMBERID}]`
-    
-13. `Redfish Power Supply {#MEMBERID} PowerInputWatts`  
-    **Key**: `http.redfish.powersupply.powerinputwatts[{#MEMBERID}]`
-    
-14. `Redfish Power Supply {#MEMBERID} PowerOutputWatts`  
-    **Key**: `http.redfish.powersupply.poweroutputwatts[{#MEMBERID}]`
+
+| **Prototype**                                                     | **Key**                                                                                     |
+|--------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| Redfish Power Supply {#MEMBERID} EfficiencyPercent                 | `http.redfish.powersupply.efficiencypercent[{#MEMBERID}]`                                    |
+| Redfish Power Supply {#MEMBERID} FirmwareVersion                   | `http.redfish.powersupply.firmwareversion[{#MEMBERID}]`                                      |
+| Redfish Power Supply {#MEMBERID} HotPluggable                      | `http.redfish.powersupply.hotpluggable[{#MEMBERID}]`                                         |
+| Redfish Power Supply {#MEMBERID} InputRanges MaximumVoltage        | `http.redfish.powersupply.inputranges.maximumvoltage[{#MEMBERID}]`                           |
+| Redfish Power Supply {#MEMBERID} InputRanges MinimumFrequencyHz    | `http.redfish.powersupply.inputranges.minimumfrequencyhz[{#MEMBERID}]`                       |
+| Redfish Power Supply {#MEMBERID} InputRanges OutputWattage         | `http.redfish.powersupply.inputranges.outputwattage[{#MEMBERID}]`                            |
+| Redfish Power Supply {#MEMBERID} LastPowerOutputWatts              | `http.redfish.powersupply.lastpoweroutputwatts[{#MEMBERID}]`                                 |
+| Redfish Power Supply {#MEMBERID} LineInputVoltage                  | `http.redfish.powersupply.lineinputvoltage[{#MEMBERID}]`                                     |
+| Redfish Power Supply {#MEMBERID} LineInputVoltageType              | `http.redfish.powersupply.lineinputvoltagetype[{#MEMBERID}]`                                 |
+| Redfish Power Supply {#MEMBERID} Manufacturer                      | `http.redfish.powersupply.manufacturer[{#MEMBERID}]`                                         |
+| Redfish Power Supply {#MEMBERID} Model                             | `http.redfish.powersupply.model[{#MEMBERID}]`                                                |
+| Redfish Power Supply {#MEMBERID} PowerCapacityWatts                | `http.redfish.powersupply.powercapacitywatts[{#MEMBERID}]`                                   |
+| Redfish Power Supply {#MEMBERID} PowerInputWatts                   | `http.redfish.powersupply.powerinputwatts[{#MEMBERID}]`                                      |
+| Redfish Power Supply {#MEMBERID} PowerOutputWatts                  | `http.redfish.powersupply.poweroutputwatts[{#MEMBERID}]`                                     |
+| Redfish Power Supply {#MEMBERID} PowerSupplyType                   | `http.redfish.powersupply.powersupplytype[{#MEMBERID}]`                                      |
+| Redfish Power Supply {#MEMBERID} SerialNumber                      | `http.redfish.powersupply.serialnumber[{#MEMBERID}]`                                         |
+| Redfish Power Supply {#MEMBERID} SparePartNumber                   | `http.redfish.powersupply.sparepartnumber[{#MEMBERID}]`                                      |
 
 ## Redundancy Item Prototypes
-1. `Redfish Redundancy {#MEMBERID} MaxNumSupported`  
-   **Key**: `http.redfish.redundancy.maxnumsupported[{#MEMBERID}]`
-   
-2. `Redfish Redundancy {#MEMBERID} MinNumNeeded`  
-   **Key**: `http.redfish.redundancy.minnumneeded[{#MEMBERID}]`
-   
-3. `Redfish Redundancy {#MEMBERID} Mode`  
-   **Key**: `http.redfish.redundancy.mode[{#MEMBERID}]`
-   
-4. `Redfish Redundancy {#MEMBERID} Name`  
-   **Key**: `http.redfish.redundancy.name[{#MEMBERID}]`
-   
-5. `Redfish Redundancy {#MEMBERID} Status Health`  
-   **Key**: `http.redfish.redundancy.status.health[{#MEMBERID}]`
-   
-6. `Redfish Redundancy {#MEMBERID} Status State`  
-   **Key**: `http.redfish.redundancy.status.state[{#MEMBERID}]`
+
+| **Prototype**                                                     | **Key**                                                                                     |
+|--------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| Redfish Redundancy {#MEMBERID} MaxNumSupported                     | `http.redfish.redundancy.maxnumsupported[{#MEMBERID}]`                                       |
+| Redfish Redundancy {#MEMBERID} MinNumNeeded                        | `http.redfish.redundancy.minnumneeded[{#MEMBERID}]`                                          |
+| Redfish Redundancy {#MEMBERID} Mode                                | `http.redfish.redundancy.mode[{#MEMBERID}]`                                                  |
+| Redfish Redundancy {#MEMBERID} Name                                | `http.redfish.redundancy.name[{#MEMBERID}]`                                                  |
+| Redfish Redundancy {#MEMBERID} Status Health                       | `http.redfish.redundancy.status.health[{#MEMBERID}]`                                         |
+| Redfish Redundancy {#MEMBERID} Status State                        | `http.redfish.redundancy.status.state[{#MEMBERID}]`                                          |
 
 ## Voltages Item Prototypes
-1. `Redfish Voltages {#MEMBERID} LowerThresholdCritical`  
-   **Key**: `http.redfish.voltages.lowerthresholdcritical[{#MEMBERID}]`
-   
-2. `Redfish Voltages {#MEMBERID} LowerThresholdFatal`  
-   **Key**: `http.redfish.voltages.lowerthresholdfatal[{#MEMBERID}]`
-   
-3. `Redfish Voltages {#MEMBERID} LowerThresholdNonCritical`  
-   **Key**: `http.redfish.voltages.lowerthresholdnoncritical[{#MEMBERID}]`
-   
-4. `Redfish Voltages {#MEMBERID} Name`  
-   **Key**: `http.redfish.voltages.name[{#MEMBERID}]`
-   
-5. `Redfish Voltages {#MEMBERID} PhysicalContext`  
-   **Key**: `http.redfish.voltages.physicalcontext[{#MEMBERID}]`
-   
-6. `Redfish Voltages {#MEMBERID} ReadingVolts`  
-   **Key**: `http.redfish.voltages.readingvolts[{#MEMBERID}]`
-   
-7. `Redfish Voltages {#MEMBERID} SensorNumber`  
-   **Key**: `http.redfish.voltages.sensornumber[{#MEMBERID}]`
-   
-8. `Redfish Voltages {#MEMBERID} Status Health`  
-   **Key**: `http.redfish.voltages.statushealth[{#MEMBERID}]`
-   
-9. `Redfish Voltages {#MEMBERID} Status State`  
-   **Key**: `http.redfish.voltages.status.state[{#MEMBERID}]`
-   
-10. `Redfish Voltages {#MEMBERID} UpperThresholdCritical`  
-    **Key**: `http.redfish.voltages.upperthresholdcritical[{#MEMBERID}]`
-    
-11. `Redfish Voltages {#MEMBERID} UpperThresholdFatal`  
-    **Key**: `http.redfish.volt
+
+| **Prototype**                                                     | **Key**                                                                                     |
+|--------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| Redfish Voltages {#MEMBERID} LowerThresholdCritical                | `http.redfish.voltages.lowerthresholdcritical[{#MEMBERID}]`                                  |
+| Redfish Voltages {#MEMBERID} LowerThresholdFatal                   | `http.redfish.voltages.lowerthresholdfatal[{#MEMBERID}]`                                     |
+| Redfish Voltages {#MEMBERID} LowerThresholdNonCritical             | `http.redfish.voltages.lowerthresholdnoncritical[{#MEMBERID}]`                               |
+| Redfish Voltages {#MEMBERID} Name                                  | `http.redfish.voltages.name[{#MEMBERID}]`                                                    |
+| Redfish Voltages {#MEMBERID} PhysicalContext                       | `http.redfish.voltages.physicalcontext[{#MEMBERID}]`                                         |
+| Redfish Voltages {#MEMBERID} ReadingVolts                          | `http.redfish.voltages.readingvolts[{#MEMBERID}]`                                            |
+| Redfish Voltages {#MEMBERID} SensorNumber                          | `http.redfish.voltages.sensornumber[{#MEMBERID}]`                                            |
+| Redfish Voltages {#MEMBERID} Status Health                         | `http.redfish.voltages.statushealth[{#MEMBERID}]`                                            |
+| Redfish Voltages {#MEMBERID} Status State                          | `http.redfish.voltages.status.state[{#MEMBERID}]`                                            |
+| Redfish Voltages {#MEMBERID} UpperThresholdCritical                | `http.redfish.voltages.upperthresholdcritical[{#MEMBERID}]`                                  |
+| Redfish Voltages {#MEMBERID} UpperThresholdFatal                   | `http.redfish.voltages.upperthresholdfatal[{#MEMBERID}]`                                     |
+| Redfish Voltages {#MEMBERID} UpperThresholdNonCritical             | `http.redfish.voltages.upperthresholdnoncritical[{#MEMBERID}]`                               |
+
